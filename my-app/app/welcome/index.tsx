@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: LIGHT_COLORS.white,
     borderWidth: 3,
-    borderColor: LIGHT_COLORS.lightPink, // Soft border color
+    borderColor: LIGHT_COLORS.lightPink, 
   },
   imageContainer: {
     width: "80%",
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: LIGHT_COLORS.lightPink, // Matches the border color for consistency
+    color: LIGHT_COLORS.lightPink, 
   },
   descriptionContainer:{
     borderWidth: 3,
@@ -76,11 +76,11 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 50,
-    backgroundColor: LIGHT_COLORS.lightBlue, // Light blue color for dots
+    backgroundColor: LIGHT_COLORS.lightBlue, 
     marginHorizontal: 25,
   },
   button: {
-    backgroundColor: LIGHT_COLORS.darkBlue, // Medium blue for button
+    backgroundColor: LIGHT_COLORS.darkBlue, 
     paddingVertical: 10,
     paddingHorizontal: "25%",
     borderRadius: 10,
