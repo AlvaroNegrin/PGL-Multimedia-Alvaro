@@ -2,6 +2,7 @@ import { ImageBackground, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Slot, Stack } from 'expo-router'
 import Header from "../components/Header";
+import Description from '../components/Description';
 
 const Layout = () => {
   return (
@@ -10,6 +11,7 @@ const Layout = () => {
             <Header />
         </View>
         <View style={styles.content}>
+            <Description/>
             <Slot/>
         </View>
     </View>

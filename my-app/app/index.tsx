@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, StatusBar, Pressable } from "react-native";
 export default function AppPage() {
   return (
     <View style={styles.container}>
-      <Redirect href={"/repository"}></Redirect>
+      <Redirect href={"/welcome"}></Redirect>
     </View>
   );
 }
