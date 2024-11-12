@@ -20,7 +20,7 @@ const WelcomePage = () => {
         <View style={styles.circle}></View>
       </View>
       <View style={styles.button} > 
-        <Link style={styles.buttonText} href={"#"}>My-Portfolio</Link>
+        <Link style={styles.buttonText} href={"/hobbies"}>My-Portfolio</Link>
       </View>
     </View>
   )

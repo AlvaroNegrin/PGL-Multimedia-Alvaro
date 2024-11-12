@@ -11,8 +11,9 @@ const Layout = () => {
             <Header />
         </View>
         <View style={styles.content}>
-            <Description/>
-            <Slot/>
+            <Stack screenOptions={{headerShown: false}}>
+                <Stack.Screen name="(tabs)" options={{headerShown: false}}  />
+            </Stack>
         </View>
     </View>
     
@@ -23,7 +24,7 @@ export default Layout
 
 const styles = StyleSheet.create({
     container:{
-      flex: 1
+      flex: 18
     },
     header: {
         flex: 2
