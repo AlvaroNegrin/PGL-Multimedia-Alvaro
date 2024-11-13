@@ -7,7 +7,7 @@ const RepositoryPage = () => {
   return (
     <View style={styles.qrContainer}>
           <Text style={styles.qrText}>
-            This my QR repository scan my code
+            Este es mi qr code escanéa mi código
           </Text>
           <QRCode
             value="https://github.com/AlvaroNegrin"
@@ -30,6 +30,8 @@ const styles = StyleSheet.create({
         gap: 30,
         marginTop: 12,
         backgroundColor: LIGHT_COLORS.white, 
+        borderColor: LIGHT_COLORS.lightPink,
+        borderWidth: 3,
       },
     qrText:{
         color: LIGHT_COLORS.lightPink,

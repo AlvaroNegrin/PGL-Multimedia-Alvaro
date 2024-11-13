@@ -24,15 +24,12 @@ export default Layout
 
 const styles = StyleSheet.create({
     container:{
-      flex: 18
+      flex: 10
     },
     header: {
-        flex: 2
+        flex: 1
     },
     content: {
-        flex: 15
-    },
-    footer: {
-        flex: 1
+        flex: 9
     }
 })
