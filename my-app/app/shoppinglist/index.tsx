@@ -18,6 +18,7 @@ const ShoppingPage = () => {
     ])
     setIsFormularyOpen(false)
   }
+  const deleteProduct = (id:String) => setProducts((prev) => prev.filter((product) => product.id !== id));
   return (
     <View style={styles.container}>
       <View style={styles.titleWrapper}>
@@ -40,6 +41,7 @@ const ShoppingPage = () => {
                   udPrice={item.udPrice}
                   quantity={item.quantity}
                   isObtained={item.isObtained}
+                  onDelete={() => deleteProduct(item.id)}
                 />
               )}
               keyExtractor={(item) => item.id}
