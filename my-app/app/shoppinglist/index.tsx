@@ -1,8 +1,6 @@
 import { FlatList, Modal, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { LIGHT_COLORS } from '../../styles/colors/color';
-import { products } from '../../data/Products';
-import uuid from 'react-native-uuid';
 import Product, { ProductProps } from '../../components/Product';
 import ModalFormulary from '../../components/ModalFormulary';
 
@@ -10,6 +8,8 @@ const ShoppingPage = () => {
 
   const [products, setProducts] = useState<ProductProps[]>([])
   const [isFormularyOpen, setIsFormularyOpen] = useState<boolean>(false)
+
+  const totalPrice = products.reduce((acc, product) => acc + (product.udPrice * product.quantity), 0);
 
   const addProduct = (product:ProductProps) => {
     setProducts((elto) => [
@@ -24,7 +24,7 @@ const ShoppingPage = () => {
           <Text style={styles.title}>Lista de la compra</Text>
       </View>
       <View style={styles.priceWrapper}>
-        <Text style={styles.price}>Precio total: 0€</Text>
+        <Text style={styles.price}>Precio total: {totalPrice}€</Text>
       </View>
       <View style={styles.productsContainer}>
         {products.length == 0 ?  (
