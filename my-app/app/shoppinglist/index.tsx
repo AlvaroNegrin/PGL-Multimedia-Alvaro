@@ -1,10 +1,23 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { FlatList, Modal, Pressable, StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
 import { LIGHT_COLORS } from '../../styles/colors/color';
 import { products } from '../../data/Products';
-import Product from '../../components/Product';
+import uuid from 'react-native-uuid';
+import Product, { ProductProps } from '../../components/Product';
+import ModalFormulary from '../../components/ModalFormulary';
 
 const ShoppingPage = () => {
+
+  const [products, setProducts] = useState<ProductProps[]>([])
+  const [isFormularyOpen, setIsFormularyOpen] = useState<boolean>(false)
+
+  const addProduct = (product:ProductProps) => {
+    setProducts((elto) => [
+      ...elto,
+      {...product},
+    ])
+    setIsFormularyOpen(false)
+  }
   return (
     <View style={styles.container}>
       <View style={styles.titleWrapper}>
@@ -33,9 +46,12 @@ const ShoppingPage = () => {
             />
         )
         }
-        <Pressable style={styles.addButton} >
+        <Pressable style={styles.addButton} onPress={() => setIsFormularyOpen(true)}>
           <Text style={styles.addButtonText}>Añadir producto</Text>
         </Pressable>
+        <Modal id='Formulary' visible={isFormularyOpen} transparent={true}>
+          <ModalFormulary closeFormulary={() => setIsFormularyOpen(false)} onSave={addProduct}></ModalFormulary>
+        </Modal>
       </View>
     </View>
   );

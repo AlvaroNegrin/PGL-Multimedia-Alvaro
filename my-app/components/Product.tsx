@@ -12,7 +12,6 @@ export type ProductProps = {
     isObtained: boolean;
   }
 const Product = ({
-    id,
     name,
     category,
     udPrice,
