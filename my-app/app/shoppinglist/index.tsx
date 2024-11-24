@@ -1,17 +1,31 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { FlatList, Modal, Pressable, StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
 import { LIGHT_COLORS } from '../../styles/colors/color';
-import { products } from '../../data/Products';
-import Product from '../../components/Product';
+import Product, { ProductProps } from '../../components/Product';
+import ModalFormulary from '../../components/ModalFormulary';
 
 const ShoppingPage = () => {
+
+  const [products, setProducts] = useState<ProductProps[]>([])
+  const [isFormularyOpen, setIsFormularyOpen] = useState<boolean>(false)
+
+  const totalPrice = products.reduce((acc, product) => acc + (product.udPrice * product.quantity), 0);
+
+  const addProduct = (product:ProductProps) => {
+    setProducts((elto) => [
+      ...elto,
+      {...product},
+    ])
+    setIsFormularyOpen(false)
+  }
+  const deleteProduct = (id:String) => setProducts((prev) => prev.filter((product) => product.id !== id));
   return (
     <View style={styles.container}>
       <View style={styles.titleWrapper}>
           <Text style={styles.title}>Lista de la compra</Text>
       </View>
       <View style={styles.priceWrapper}>
-        <Text style={styles.price}>Precio total: 0€</Text>
+        <Text style={styles.price}>Precio total: {totalPrice}€</Text>
       </View>
       <View style={styles.productsContainer}>
         {products.length == 0 ?  (
@@ -27,15 +41,19 @@ const ShoppingPage = () => {
                   udPrice={item.udPrice}
                   quantity={item.quantity}
                   isObtained={item.isObtained}
+                  onDelete={() => deleteProduct(item.id)}
                 />
               )}
               keyExtractor={(item) => item.id}
             />
         )
         }
-        <Pressable style={styles.addButton} >
+        <Pressable style={styles.addButton} onPress={() => setIsFormularyOpen(true)}>
           <Text style={styles.addButtonText}>Añadir producto</Text>
         </Pressable>
+        <Modal id='Formulary' visible={isFormularyOpen} transparent={true}>
+          <ModalFormulary closeFormulary={() => setIsFormularyOpen(false)} onSave={addProduct}></ModalFormulary>
+        </Modal>
       </View>
     </View>
   );

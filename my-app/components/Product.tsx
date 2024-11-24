@@ -9,15 +9,16 @@ export type ProductProps = {
     category: ImageSourcePropType,
     udPrice: number,
     quantity: number,
-    isObtained: boolean;
+    isObtained: boolean,
+    onDelete?: () => void
   }
 const Product = ({
-    id,
     name,
     category,
     udPrice,
     quantity,
-    isObtained
+    isObtained,
+    onDelete
 }: ProductProps) => {
   return (
     <View style={styles.productContainer}>
@@ -29,7 +30,7 @@ const Product = ({
         <Text style={styles.details}>Cantidad: {quantity}</Text>
         <Text style={styles.details}>{udPrice}€ ud</Text>
         <Text style={styles.details}>En Carrito: {isObtained ? 'Sí' : 'No'}</Text>
-        <Pressable style={styles.deleteButton}>
+        <Pressable style={styles.deleteButton} onPress={onDelete}>
           <Text style={styles.deleteButtonText}>Eliminar</Text>
         </Pressable>
       </View>
