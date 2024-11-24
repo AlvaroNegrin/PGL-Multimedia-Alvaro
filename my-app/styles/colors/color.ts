@@ -1,7 +1,7 @@
 
 export const LIGHT_COLORS = {
     white : "#f8f9fa",
-    lightPink : "#c69b9f",
+    lightPink : "#eaa0a2",
     lightBlue : "#bae0f7",
     darkBlue : "#5a9bc3",
   };
