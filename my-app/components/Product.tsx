@@ -10,6 +10,7 @@ export type ProductProps = {
     udPrice: number,
     quantity: number,
     isObtained: boolean,
+    changeObtained?:() => void
     onDelete?: () => void
     onEdit?: () => void
   }
@@ -19,6 +20,7 @@ const Product = ({
     udPrice,
     quantity,
     isObtained,
+    changeObtained,
     onDelete,
     onEdit
 }: ProductProps) => {
@@ -31,7 +33,13 @@ const Product = ({
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.details}>Cantidad: {quantity}</Text>
         <Text style={styles.details}>{udPrice}€ ud</Text>
-        <Text style={styles.details}>En Carrito: {isObtained ? 'Sí' : 'No'}</Text>
+        <View style={styles.rowContainer}>
+          <Text style={styles.details}>En Carrito:</Text>
+          <Pressable style={styles.obtainedButton} onPress={changeObtained}>
+            <Text style={styles.toggleButtonText}>{isObtained ? 'Sí' : 'No'}</Text>
+          </Pressable>
+        </View>
+        
         <View style={styles.rowContainer}>
           <View style={styles.deleteButton}>
             <Pressable onPress={onDelete}>
@@ -89,6 +97,16 @@ const styles = StyleSheet.create({
       },
       rowContainer: {
         flexDirection: "row",
+        alignItems: "center"
+      },
+      obtainedButton: {
+        width: "20%",
+        borderWidth: 1,
+        borderRadius: 20,
+        margin: 5,
+        borderColor: LIGHT_COLORS.darkBlue,
+        backgroundColor: LIGHT_COLORS.white,
+        color: LIGHT_COLORS.darkBlue
       },
       deleteButton: {
         paddingVertical: 5,
@@ -99,8 +117,14 @@ const styles = StyleSheet.create({
         width: "36%",
         margin: 5
       },
-      deleteButtonText: {
-        color: 'white',
+      toggleButtonText: {
+        color: LIGHT_COLORS.darkBlue,
         fontWeight: 'bold',
+        textAlign: "center"
+      },
+      deleteButtonText: {
+        color: LIGHT_COLORS.white,
+        fontWeight: 'bold',
+        textAlign: "center"
       },
 })
