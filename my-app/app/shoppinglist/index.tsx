@@ -8,8 +8,9 @@ const ShoppingPage = () => {
 
   const [products, setProducts] = useState<ProductProps[]>([])
   const [isFormularyOpen, setIsFormularyOpen] = useState<boolean>(false)
+  const [editingProduct, setEditingProduct] = useState<ProductProps | null>(null);
 
-  const totalPrice = products.reduce((acc, product) => acc + (product.udPrice * product.quantity), 0);
+  const totalPrice = products.reduce((acc, product) => acc + (product.isObtained ? product.udPrice * product.quantity : 0),0);
 
   const addProduct = (product:ProductProps) => {
     setProducts((elto) => [
@@ -18,6 +19,25 @@ const ShoppingPage = () => {
     ])
     setIsFormularyOpen(false)
   }
+  
+  const editProduct = (updatedProduct: ProductProps) => {
+    setProducts((prev) =>
+      prev.map((product) => (product.id === updatedProduct.id ? updatedProduct : product))
+    );
+    setEditingProduct(null); 
+    setIsFormularyOpen(false);
+  };
+
+  const handleEdit = (product: ProductProps) => {
+    setEditingProduct(product);
+    setIsFormularyOpen(true); 
+  };
+
+  const onChangeObtained = (id: String) =>
+    setProducts((prev) =>
+      prev.map((product) => (product.id === id ? { ...product, isObtained: !product.isObtained } : product))
+    );
+
   const deleteProduct = (id:String) => setProducts((prev) => prev.filter((product) => product.id !== id));
   return (
     <View style={styles.container}>
@@ -41,7 +61,9 @@ const ShoppingPage = () => {
                   udPrice={item.udPrice}
                   quantity={item.quantity}
                   isObtained={item.isObtained}
+                  changeObtained={() => onChangeObtained(item.id)}
                   onDelete={() => deleteProduct(item.id)}
+                  onEdit={() => handleEdit(item)}
                 />
               )}
               keyExtractor={(item) => item.id}
@@ -52,7 +74,7 @@ const ShoppingPage = () => {
           <Text style={styles.addButtonText}>Añadir producto</Text>
         </Pressable>
         <Modal id='Formulary' visible={isFormularyOpen} transparent={true}>
-          <ModalFormulary closeFormulary={() => setIsFormularyOpen(false)} onSave={addProduct}></ModalFormulary>
+          <ModalFormulary closeFormulary={() => setIsFormularyOpen(false)} onSave={editingProduct ? editProduct : addProduct} editingProduct={editingProduct}></ModalFormulary>
         </Modal>
       </View>
     </View>
