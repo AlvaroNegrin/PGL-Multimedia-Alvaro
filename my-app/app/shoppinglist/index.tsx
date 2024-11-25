@@ -25,7 +25,7 @@ const ShoppingPage = () => {
           <Text style={styles.title}>Lista de la compra</Text>
       </View>
       <View style={styles.priceWrapper}>
-        <Text style={styles.price}>Precio total: {totalPrice}€</Text>
+        <Text style={styles.price}>Precio total: {totalPrice.toFixed(2)}€</Text>
       </View>
       <View style={styles.productsContainer}>
         {products.length == 0 ?  (

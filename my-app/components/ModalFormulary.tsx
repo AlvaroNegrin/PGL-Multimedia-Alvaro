@@ -66,15 +66,15 @@ const handleSave = () => {
           <View style={styles.dataRow}>
             <TextInput
               style={[styles.input, { flex: 1, marginRight: 10 }]}
-              placeholder="Nombre"
+              placeholder="Nombre:"
               value={name}
               onChangeText={setName}
             />
             <TextInput
               style={[styles.input, { flex: 1 }]}
               keyboardType= "decimal-pad"
-              value={udPrice.toString()}
-              onChangeText={(text) => setUdPrice(parseFloat(text) || 0)}
+              placeholder="Precio:"
+              onChangeText={(text) => setUdPrice(parseFloat(text) || 0.00)}
             />
           </View>
           <Text style={styles.label}>Categoría :</Text>
@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
     backgroundColor: LIGHT_COLORS.white
   },
   picker: {
-    
     width: '100%',
   },
   label: {

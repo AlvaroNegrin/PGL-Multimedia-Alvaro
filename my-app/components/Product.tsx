@@ -30,9 +30,11 @@ const Product = ({
         <Text style={styles.details}>Cantidad: {quantity}</Text>
         <Text style={styles.details}>{udPrice}€ ud</Text>
         <Text style={styles.details}>En Carrito: {isObtained ? 'Sí' : 'No'}</Text>
-        <Pressable style={styles.deleteButton} onPress={onDelete}>
-          <Text style={styles.deleteButtonText}>Eliminar</Text>
-        </Pressable>
+        <View style={styles.deleteButton}>
+          <Pressable onPress={onDelete}>
+            <Text style={styles.deleteButtonText}>Eliminar</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   )
@@ -81,7 +83,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         backgroundColor: LIGHT_COLORS.lightPink,
         borderRadius: 8,
-        marginTop: 5
+        marginTop: 5,
+        width: "52%"
       },
       deleteButtonText: {
         color: 'white',
