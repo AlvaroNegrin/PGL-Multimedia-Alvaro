@@ -11,6 +11,7 @@ export type ProductProps = {
     quantity: number,
     isObtained: boolean,
     onDelete?: () => void
+    onEdit?: () => void
   }
 const Product = ({
     name,
@@ -18,7 +19,8 @@ const Product = ({
     udPrice,
     quantity,
     isObtained,
-    onDelete
+    onDelete,
+    onEdit
 }: ProductProps) => {
   return (
     <View style={styles.productContainer}>
@@ -30,10 +32,17 @@ const Product = ({
         <Text style={styles.details}>Cantidad: {quantity}</Text>
         <Text style={styles.details}>{udPrice}€ ud</Text>
         <Text style={styles.details}>En Carrito: {isObtained ? 'Sí' : 'No'}</Text>
-        <View style={styles.deleteButton}>
-          <Pressable onPress={onDelete}>
-            <Text style={styles.deleteButtonText}>Eliminar</Text>
-          </Pressable>
+        <View style={styles.rowContainer}>
+          <View style={styles.deleteButton}>
+            <Pressable onPress={onDelete}>
+              <Text style={styles.deleteButtonText}>Eliminar</Text>
+            </Pressable>
+          </View>
+          <View style={styles.deleteButton}>
+            <Pressable onPress={onEdit}>
+              <Text style={styles.deleteButtonText}>Editar</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
     </View>
@@ -78,13 +87,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: LIGHT_COLORS.darkBlue,
       },
+      rowContainer: {
+        flexDirection: "row",
+      },
       deleteButton: {
         paddingVertical: 5,
         paddingHorizontal: 15,
         backgroundColor: LIGHT_COLORS.lightPink,
         borderRadius: 8,
         marginTop: 5,
-        width: "52%"
+        width: "36%",
+        margin: 5
       },
       deleteButtonText: {
         color: 'white',

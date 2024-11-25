@@ -10,9 +10,10 @@ import { Picker } from '@react-native-picker/picker';
 type FormularyProps = {
   closeFormulary: () => void
   onSave: (product: ProductProps) => void
+  editingProduct?: ProductProps | null
 }
 
-const ModalFormulary = ({closeFormulary, onSave}: FormularyProps) => {
+const ModalFormulary = ({closeFormulary, onSave, editingProduct}: FormularyProps) => {
 
 const [name, setName] = useState('');
 const [category, setCategory] = useState<ImageSourcePropType>(CATEGORIES.others);
@@ -33,19 +34,26 @@ setCategory(CATEGORIES.others);
 setQuantity(0);
 setUdPrice(0.00);
 }
-
-return () => {
-setName('');
-setCategory(CATEGORIES.others);
-setQuantity(0);
-setUdPrice(0.00);
-};
 }, [product]);
+
+useEffect(() => {
+  if (editingProduct) {
+    setName(editingProduct.name);
+    setCategory(editingProduct.category);
+    setQuantity(editingProduct.quantity);
+    setUdPrice(editingProduct.udPrice);
+  } else {
+    setName('');
+    setCategory(CATEGORIES.others);
+    setQuantity(0);
+    setUdPrice(0.00);
+  }
+}, [editingProduct]);
 
 const handleSave = () => {
   if (name == "" || quantity == 0 || udPrice == 0.00) return;
   onSave({
-    id: uuid.v4(),
+    id: editingProduct?.id || uuid.v4().toString(),
     name,
     category,
     quantity,
@@ -58,7 +66,7 @@ const handleSave = () => {
       <View style={styles.wrapper}>
         <View style={styles.formularyWrapper}>
           <View style={styles.headerContainer}>
-            <Text style={styles.header}>Elegir producto :</Text>
+            <Text style={styles.header}>{editingProduct ? "Editar el producto :" : "Añadir un producto :"}</Text>
             <Pressable onPress={closeFormulary}>
               <Ionicons style={{bottom: 20, left: 10}} name='close' size={25} ></Ionicons>
             </Pressable>
@@ -74,6 +82,7 @@ const handleSave = () => {
               style={[styles.input, { flex: 1 }]}
               keyboardType= "decimal-pad"
               placeholder="Precio:"
+              value={udPrice.toString()}
               onChangeText={(text) => setUdPrice(parseFloat(text) || 0.00)}
             />
           </View>
