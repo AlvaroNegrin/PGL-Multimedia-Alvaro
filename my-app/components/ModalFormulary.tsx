@@ -6,6 +6,7 @@ import { ProductProps } from './Product';
 import { CATEGORIES } from '../data/Categories';
 import uuid from 'react-native-uuid';
 import { Picker } from '@react-native-picker/picker';
+import CurrencyInput from 'react-native-currency-input';
 
 type FormularyProps = {
   closeFormulary: () => void
@@ -13,54 +14,54 @@ type FormularyProps = {
   editingProduct?: ProductProps | null
 }
 
-const ModalFormulary = ({closeFormulary, onSave, editingProduct}: FormularyProps) => {
+const ModalFormulary = ({ closeFormulary, onSave, editingProduct }: FormularyProps) => {
 
-const [name, setName] = useState('');
-const [category, setCategory] = useState<ImageSourcePropType>(CATEGORIES.others);
-const [quantity, setQuantity] = useState(0);
-const [udPrice, setUdPrice] = useState(0.00);
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState<ImageSourcePropType>(CATEGORIES.others);
+  const [quantity, setQuantity] = useState(0);
+  const [udPrice, setUdPrice] = useState(0.00);
 
-const [product, _setProduct] = useState<ProductProps>();
+  const [product, _setProduct] = useState<ProductProps>();
 
-useEffect(() => {
-if (product) {
-setName(product.name);
-setCategory(product.category);
-setQuantity(product.quantity);
-setUdPrice(product.udPrice);
-} else {
-setName('');
-setCategory(CATEGORIES.others);
-setQuantity(0);
-setUdPrice(0.00);
-}
-}, [product]);
+  useEffect(() => {
+    if (product) {
+      setName(product.name);
+      setCategory(product.category);
+      setQuantity(product.quantity);
+      setUdPrice(product.udPrice);
+    } else {
+      setName('');
+      setCategory(CATEGORIES.others);
+      setQuantity(0);
+      setUdPrice(0.00);
+    }
+  }, [product]);
 
-useEffect(() => {
-  if (editingProduct) {
-    setName(editingProduct.name);
-    setCategory(editingProduct.category);
-    setQuantity(editingProduct.quantity);
-    setUdPrice(editingProduct.udPrice);
-  } else {
-    setName('');
-    setCategory(CATEGORIES.others);
-    setQuantity(0);
-    setUdPrice(0.00);
-  }
-}, [editingProduct]);
+  useEffect(() => {
+    if (editingProduct) {
+      setName(editingProduct.name);
+      setCategory(editingProduct.category);
+      setQuantity(editingProduct.quantity);
+      setUdPrice(editingProduct.udPrice);
+    } else {
+      setName('');
+      setCategory(CATEGORIES.others);
+      setQuantity(0);
+      setUdPrice(0.00);
+    }
+  }, [editingProduct]);
 
-const handleSave = () => {
-  if (name == "" || quantity == 0 || udPrice == 0.00) return;
-  onSave({
-    id: editingProduct?.id || uuid.v4().toString(),
-    name,
-    category,
-    quantity,
-    udPrice,
-    isObtained: false,
-  });
-};
+  const handleSave = () => {
+    if (name == "" || quantity == 0 || udPrice == 0.00) return;
+    onSave({
+      id: editingProduct?.id || uuid.v4().toString(),
+      name,
+      category,
+      quantity,
+      udPrice,
+      isObtained: false,
+    });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
@@ -68,7 +69,7 @@ const handleSave = () => {
           <View style={styles.headerContainer}>
             <Text style={styles.header}>{editingProduct ? "Editar el producto :" : "Añadir un producto :"}</Text>
             <Pressable onPress={closeFormulary}>
-              <Ionicons style={{bottom: 20, left: 10}} name='close' size={25} ></Ionicons>
+              <Ionicons style={{ bottom: 20, left: 10 }} name='close' size={25} ></Ionicons>
             </Pressable>
           </View>
           <View style={styles.dataRow}>
@@ -78,12 +79,15 @@ const handleSave = () => {
               value={name}
               onChangeText={setName}
             />
-            <TextInput
+            <CurrencyInput
               style={[styles.input, { flex: 1 }]}
-              keyboardType= "decimal-pad"
-              placeholder="Precio:"
-              value={udPrice.toString()}
-              onChangeText={(text) => setUdPrice(parseFloat(text) || 0.00)}
+              value={udPrice} 
+              onChangeValue={(value) => setUdPrice(value || 0.00)} 
+              separator="." 
+              precision={2} 
+              minValue={0} 
+              placeholder="Precio:" 
+              suffix='€'
             />
           </View>
           <Text style={styles.label}>Categoría :</Text>
@@ -99,18 +103,18 @@ const handleSave = () => {
               <Picker.Item label="Enlatados" value={CATEGORIES.cannedFood} />
               <Picker.Item label="Carnes" value={CATEGORIES.meats} />
               <Picker.Item label="Pescados" value={CATEGORIES.fish} />
-              <Picker.Item label="Frutas/Verduras" value={CATEGORIES.fruitsVegetables}  />
+              <Picker.Item label="Frutas/Verduras" value={CATEGORIES.fruitsVegetables} />
               <Picker.Item label="Otros" value={CATEGORIES.others} />
             </Picker>
           </View>
           <Text style={styles.label}>Cantidad :</Text>
-          <TextInput 
-            style={styles.input} 
-            placeholder="0" 
+          <TextInput
+            style={styles.input}
+            placeholder="0"
             keyboardType="numeric"
             value={quantity.toString()}
             onChangeText={(text) => setQuantity(parseInt(text) || 0)}
-            />
+          />
           <Pressable style={styles.confirmButton} onPress={handleSave}>
             <Text style={styles.confirmButtonText}>Confirmar</Text>
           </Pressable>
@@ -123,7 +127,7 @@ const handleSave = () => {
 export default ModalFormulary
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     justifyContent: "center",
   },
@@ -141,7 +145,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 5,
   },
-  headerContainer:{
+  headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
