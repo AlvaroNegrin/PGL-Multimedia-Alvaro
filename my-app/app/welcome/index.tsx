@@ -19,8 +19,13 @@ const WelcomePage = () => {
         <View style={styles.circle}></View>
         <View style={styles.circle}></View>
       </View>
-      <View style={styles.button} > 
-        <Link style={styles.buttonText} href={"/hobbies"}>My-Portfolio</Link>
+      <View style={styles.buttonsContainer}>
+        <View style={styles.button} > 
+          <Link style={styles.buttonText} href={"/shoppinglist"}>My-Shopping-List</Link>
+        </View>
+        <View style={styles.button} > 
+          <Link style={styles.buttonText} href={"/hobbies"}>My-Portfolio</Link>
+        </View>
       </View>
     </View>
   )
@@ -79,11 +84,15 @@ const styles = StyleSheet.create({
     backgroundColor: LIGHT_COLORS.lightBlue, 
     marginHorizontal: 25,
   },
+  buttonsContainer: {
+    flexDirection: "column",
+  },
   button: {
     backgroundColor: LIGHT_COLORS.darkBlue, 
     paddingVertical: 10,
     paddingHorizontal: "25%",
     borderRadius: 10,
+    marginVertical: 10
   },
   buttonText: {
     color: LIGHT_COLORS.white,
