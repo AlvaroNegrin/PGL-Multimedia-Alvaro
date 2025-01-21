@@ -1,8 +1,8 @@
 import { FlatList, Modal, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
-import { LIGHT_COLORS } from '../../styles/colors/color';
-import Product, { ProductProps } from '../../components/Product';
-import ModalFormulary from '../../components/ModalFormulary';
+import { LIGHT_COLORS } from '../../../styles/colors/color';
+import Product, { ProductProps } from '../../../components/Product';
+import ModalFormulary from '../../../components/ModalFormulary';
 
 const ShoppingPage = () => {
 
