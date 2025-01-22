@@ -1,35 +1,15 @@
-import { ImageBackground, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Slot, Stack } from 'expo-router'
-import Header from "../components/Header";
-import Description from '../components/Description';
+import PropTypes from 'prop-types'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { Slot } from 'expo-router'
 
-const Layout = () => {
+const AppLayout = () => {
   return (
-    <View style={styles.container}>
-        <View style={styles.header}>
-            <Header />
-        </View>
-        <View style={styles.content}>
-            <Stack screenOptions={{headerShown: false}}>
-                <Stack.Screen name="(tabs)" options={{headerShown: false}}  />
-            </Stack>
-        </View>
-    </View>
-    
+    <GestureHandlerRootView style={{flex:1}}>
+        <Slot/>
+    </GestureHandlerRootView>
   )
 }
 
-export default Layout
 
-const styles = StyleSheet.create({
-    container:{
-      flex: 10
-    },
-    header: {
-        flex: 1
-    },
-    content: {
-        flex: 9
-    }
-})
+export default AppLayout
