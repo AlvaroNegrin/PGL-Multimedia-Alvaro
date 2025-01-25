@@ -1,17 +1,30 @@
-import { Redirect } from "expo-router";
-import { StyleSheet, Text, View, StatusBar, Pressable } from "react-native";
-
+import { router, useRootNavigationState } from "expo-router";
+import { useEffect, useState } from "react";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
+import { LIGHT_COLORS } from "../styles/colors/color";
 
 export default function AppPage() {
-  return (
-    <View style={styles.container}>
-      <Redirect href="/welcome"></Redirect>
-    </View>
-  );
+  const navigationState = useRootNavigationState();
+
+  useEffect(() => {
+    if (navigationState?.key) {
+      router.navigate("/user-management/register");
+    }
+  }, [navigationState]);
+
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color={LIGHT_COLORS.lightBlue} />
+      </View>
+    );
+
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%"
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: LIGHT_COLORS.white,
   },
 });
