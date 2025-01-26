@@ -41,12 +41,10 @@ const LoginPage = () => {
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; 
     
         if (!emailRegex.test(userData.email)) {
-          console.log("email")
           Toast.show({ type: 'error', text1: 'Error', text2: 'Introduce un correo electrónico válido.' });
           return false;
         }
         if (!passwordRegex.test(userData.pswd)) {
-          console.log("password")
           Toast.show({
             type: 'error',
             text1: 'Error',
@@ -65,7 +63,6 @@ const LoginPage = () => {
 
   return (
     <View style={styles.container}>
-        <Toast/>
       <Image
         source={{
           uri: 'https://media1.tenor.com/m/xAPR8wQ6muIAAAAd/steins-gate-science-adventure.gif', 

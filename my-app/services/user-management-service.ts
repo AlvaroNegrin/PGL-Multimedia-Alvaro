@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Toast from "react-native-toast-message";
 import { UserLogData, UserRegisData } from "../types/UserType";
 import { asyncStorageService } from "./async-storage-service";
@@ -46,14 +46,16 @@ const logUser = async (data: UserLogData) => {
                 Toast.show({ type: 'error', text1: 'Error', text2: 'No se ha recibido un token válido'});
             }
             
-          } else if (response.status === 400) {
-            Toast.show({ type: 'error', text1: 'Error', text2: 'No se enviado el cuerpo de la petición correctamente' });
-          } else {
-            Toast.show({ type: 'error', text1: 'Error', text2: 'El email o la contraseña son incorrectos' });
-          }
+          } else 
         return response.data;
     } catch (error) {
-        Toast.show({ type: 'error', text1: 'Error', text2: 'No se pudo conectar con el servidor.' });
+        if (error instanceof AxiosError && error.status === 400) {
+            Toast.show({ type: 'error', text1: 'Error', text2: 'No se enviado el cuerpo de la petición correctamente' });
+          } else if (error instanceof AxiosError && error.status === 401){
+            Toast.show({ type: 'error', text1: 'Error', text2: 'El email o la contraseña son incorrectos' });
+          } else {
+            Toast.show({ type: 'error', text1: 'Error', text2: 'No se pudo conectar con el servidor.' });
+          }
     }
 }
 export const storageService = {

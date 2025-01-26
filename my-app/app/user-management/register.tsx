@@ -73,7 +73,6 @@ const RegisterPage = () => {
 
   return (
     <View style={styles.container}>
-      <Toast/>
       <Image
         source={"https://media1.tenor.com/m/TSPV5XsTIssAAAAd/flcl.gif"}
         style={styles.image}
