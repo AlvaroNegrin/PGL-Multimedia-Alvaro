@@ -1,17 +1,40 @@
-import { Redirect } from "expo-router";
-import { StyleSheet, Text, View, StatusBar, Pressable } from "react-native";
-
+import { router, useRootNavigationState } from "expo-router";
+import { useEffect, useState } from "react";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
+import { LIGHT_COLORS } from "../styles/colors/color";
+import { asyncStorageService } from "../services/async-storage-service";
 
 export default function AppPage() {
-  return (
-    <View style={styles.container}>
-      <Redirect href="/welcome"></Redirect>
-    </View>
-  );
+  const navigationState = useRootNavigationState();
+
+  useEffect(() => {
+    const checkToken = async () => {
+        const token = await asyncStorageService.get(asyncStorageService.KEYS.userToken);
+        if (token) {
+            router.navigate("/welcome");
+        } else {
+            router.navigate("/user-management/login");
+        }
+    };
+
+    if (navigationState?.key) {
+        checkToken();
+    }
+}, [navigationState]);
+
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color={LIGHT_COLORS.lightBlue} />
+      </View>
+    );
+
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%"
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: LIGHT_COLORS.white,
   },
 });

@@ -1,13 +1,13 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router'
-import { DARK_COLORS, LIGHT_COLORS } from '../../styles/colors/color'
+import { DARK_COLORS, LIGHT_COLORS } from '../../../styles/colors/color'
 
 const WelcomePage = () => {
   return (
     <View  style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image style={styles.image}  source={require("../../assets/images/happy.jpg")}></Image>
+        <Image style={styles.image}  source={require("../../../assets/images/happy.jpg")}></Image>
       </View>
       <Text style={styles.welcomeText} >Welcome</Text>
       <View style={styles.descriptionContainer}>

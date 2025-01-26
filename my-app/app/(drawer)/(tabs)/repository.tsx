@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import QRCode from 'react-native-qrcode-svg'
-import { LIGHT_COLORS } from '../../styles/colors/color'
+import { LIGHT_COLORS } from '../../../styles/colors/color'
 
 const RepositoryPage = () => {
   return (
@@ -11,7 +11,7 @@ const RepositoryPage = () => {
           </Text>
           <QRCode
             value="https://github.com/AlvaroNegrin"
-            logo={require("../../assets/icon.png")}
+            logo={require("../../../assets/icon.png")}
             logoSize={10}
             logoBackgroundColor="transparent"
           />

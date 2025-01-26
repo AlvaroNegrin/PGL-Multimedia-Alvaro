@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Tabs } from 'expo-router'
-import Description from '../../components/Description'
+import Description from '../../../components/Description'
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { LIGHT_COLORS } from '../../styles/colors/color';
+import { LIGHT_COLORS } from '../../../styles/colors/color';
 
 const TabsLayout = () => {
   return (
