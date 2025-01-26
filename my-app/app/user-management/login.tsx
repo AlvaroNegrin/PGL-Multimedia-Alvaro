@@ -5,12 +5,12 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Image,
   StyleSheet,
 } from 'react-native';
 import { LIGHT_COLORS } from '../../styles/colors/color';
 import { UserLogData } from '../../types/UserType';
 import Toast from 'react-native-toast-message';
+import {Image} from 'expo-image'
 import { storageService } from '../../services/user-management-service';
 
 const LoginPage = () => {
@@ -68,7 +68,7 @@ const LoginPage = () => {
         <Toast/>
       <Image
         source={{
-          uri: 'https://media.giphy.com/media/l0HlNQ03J5JxX6lva/giphy.gif', 
+          uri: 'https://media1.tenor.com/m/xAPR8wQ6muIAAAAd/steins-gate-science-adventure.gif', 
         }}
         style={styles.image}
       />

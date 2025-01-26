@@ -4,13 +4,13 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Image,
   StyleSheet,
 } from 'react-native';
 import { LIGHT_COLORS } from '../../styles/colors/color';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { storageService } from '../../services/user-management-service';
+import {Image} from 'expo-image'
 import { UserRegisData } from '../../types/UserType';
 import { router } from 'expo-router';
 
@@ -75,7 +75,7 @@ const RegisterPage = () => {
     <View style={styles.container}>
       <Toast/>
       <Image
-        source={require("../../assets/images/magi-gordito.gif")}
+        source={"https://media1.tenor.com/m/TSPV5XsTIssAAAAd/flcl.gif"}
         style={styles.image}
         
       />
