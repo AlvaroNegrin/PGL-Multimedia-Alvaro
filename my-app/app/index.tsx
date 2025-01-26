@@ -2,15 +2,25 @@ import { router, useRootNavigationState } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, View, ActivityIndicator } from "react-native";
 import { LIGHT_COLORS } from "../styles/colors/color";
+import { asyncStorageService } from "../services/async-storage-service";
 
 export default function AppPage() {
   const navigationState = useRootNavigationState();
 
   useEffect(() => {
+    const checkToken = async () => {
+        const token = await asyncStorageService.get(asyncStorageService.KEYS.userToken);
+        if (token) {
+            router.navigate("/welcome");
+        } else {
+            router.navigate("/user-management/login");
+        }
+    };
+
     if (navigationState?.key) {
-      router.navigate("/user-management/register");
+        checkToken();
     }
-  }, [navigationState]);
+}, [navigationState]);
 
     return (
       <View style={styles.container}>
