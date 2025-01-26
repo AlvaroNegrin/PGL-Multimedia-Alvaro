@@ -48,17 +48,14 @@ const RegisterPage = () => {
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; 
 
     if (!userData.fullName.trim()) {
-      console.log("nombre")
       Toast.show({ type: 'error', text1: 'Error', text2: 'El nombre completo es obligatorio.' });
       return false;
     }
     if (!emailRegex.test(userData.email)) {
-      console.log("email")
       Toast.show({ type: 'error', text1: 'Error', text2: 'Introduce un correo electrónico válido.' });
       return false;
     }
     if (!passwordRegex.test(userData.pswd)) {
-      console.log("password")
       Toast.show({
         type: 'error',
         text1: 'Error',

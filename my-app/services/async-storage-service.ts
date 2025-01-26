@@ -1,7 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const KEYS = {
-  toDoList: "to-do-list",
   userToken: 'user-token'
 }
 
