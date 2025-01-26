@@ -11,15 +11,16 @@ import { LIGHT_COLORS } from '../../styles/colors/color';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { storageService } from '../../services/user-management-service';
-import { UserData } from '../../types/UserType';
+import { UserRegisData } from '../../types/UserType';
+import { router } from 'expo-router';
 
 const RegisterPage = () => {
-  const initialUserData: UserData = {
+  const initialUserData: UserRegisData = {
     fullName: "",
     email: "",
     pswd: ""
   }
-  const [userData, setUserData] = useState<UserData>(initialUserData);
+  const [userData, setUserData] = useState<UserRegisData>(initialUserData);
 
   const handleFullName = (fullName: string) => {
     setUserData({
@@ -110,7 +111,8 @@ const RegisterPage = () => {
       </TouchableOpacity>
 
       <Text
-        style={styles.linkText}>
+        style={styles.linkText}
+        onPress={() => router.navigate("user-management/login")}>
         ¿Ya tienes una cuenta? Inicia sesión aquí
       </Text>
     </View>
