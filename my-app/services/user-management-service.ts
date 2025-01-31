@@ -5,8 +5,8 @@ import { UserLogData, UserRegisData } from "../types/UserType";
 import { asyncStorageService } from "./async-storage-service";
 import { router } from "expo-router";
 
-const TOKEN_KEY = "aSecretExample123";
 const API_URL = "http://192.168.1.18:5000/auth";
+const API_URL_IMAGE = "http://192.168.1.18:5000/images";
 
 const registerUser = async (data: UserRegisData) => {
     try {
@@ -58,7 +58,29 @@ const logUser = async (data: UserLogData) => {
           }
     }
 }
+
+const getImages = async (token: string) => {
+  try {
+    const response = await axios.get(`${API_URL_IMAGE}/get-all`, {
+      headers: {
+        Authorization:("Bearer " + token),
+      }
+    });
+    console.log(response.data.object)
+    return response.data.object;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Error en la solicitud:", error.response?.data || error.message);
+    } else {
+      console.log('Error fetching images:', error);
+    }
+    return [];
+
+  }
+}
+
 export const storageService = {
     registerUser,
-    logUser
+    logUser,
+    getImages,
   };
