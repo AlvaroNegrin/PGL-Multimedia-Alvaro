@@ -36,6 +36,14 @@ const Layout = () => {
                     }
                     }
                 />
+                <Drawer.Screen
+                    name='gallery/index'
+                    options={{
+                        drawerLabel: "Gallery",
+                        title: "Gallery"
+                    }
+                    }
+                />
             </Drawer>
     
   )
