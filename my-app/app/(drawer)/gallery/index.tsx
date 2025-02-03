@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { storageService } from '../../../services/user-management-service';
-import { Button, Dimensions, FlatList, Image, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Button, Dimensions, FlatList, Image, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ImageData } from '../../../types/ImageType';
 import { asyncStorageService } from '../../../services/async-storage-service';
 import { LIGHT_COLORS } from '../../../styles/colors/color';
@@ -17,6 +17,7 @@ const GalleryPage = () => {
   const [cameraVisible, setCameraVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [permission, requestPermission] = useCameraPermissions();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!cameraVisible) {
@@ -25,6 +26,7 @@ const GalleryPage = () => {
   }, [cameraVisible]);
 
   const fetchImages = async () => {
+    setLoading(true);
     try {
       const token = await asyncStorageService.get();
       if (!token) throw new Error('No token found');
@@ -32,6 +34,8 @@ const GalleryPage = () => {
       setImages(imagesData);
     } catch (error) {
       console.error('Error fetching images:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,8 +61,9 @@ const GalleryPage = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Galería de Imágenes</Text>
-
-      {images.length === 0 ? (
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : images.length === 0 ? (
         <Text style={styles.noImagesText}>No hay imágenes disponibles.</Text>
       ) : (
         <FlatList
@@ -73,7 +78,6 @@ const GalleryPage = () => {
           )}
         />
       )}
-
       <Pressable style={styles.cameraButton} onPress={handleOpenCamera}>
         <Text style={styles.cameraButtonText}>Abrir Cámara</Text>
       </Pressable>
@@ -136,9 +140,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   bigImage: {
-    flex: 1, 
-    justifyContent: 'center', 
-    alignItems: 'center', 
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.6)'
   }
 });
