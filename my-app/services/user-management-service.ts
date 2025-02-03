@@ -66,7 +66,6 @@ const getImages = async (token: string) => {
         Authorization:("Bearer " + token),
       }
     });
-    console.log(response.data.object)
     return response.data.object;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -79,8 +78,25 @@ const getImages = async (token: string) => {
   }
 }
 
+const uploadImage = async (base64 : string, token: string) => {
+  try {
+    const payload = {
+      width: 1920, 
+      height: 1080,
+      encodedData: base64,
+    };
+    await axios.post(`${API_URL_IMAGE}/save`, payload, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    throw error;
+  }
+}
+
 export const storageService = {
     registerUser,
     logUser,
     getImages,
+    uploadImage
   };
