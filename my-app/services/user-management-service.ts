@@ -94,9 +94,22 @@ const uploadImage = async (base64 : string, token: string) => {
   }
 }
 
+const deleteImage = async (id:number) => {
+  try {
+    const token = await asyncStorageService.get()
+    await axios.delete(`${API_URL_IMAGE}/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    throw error;
+  }
+}
+
 export const storageService = {
     registerUser,
     logUser,
     getImages,
-    uploadImage
+    uploadImage,
+    deleteImage
   };

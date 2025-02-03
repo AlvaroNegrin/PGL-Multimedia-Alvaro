@@ -66,7 +66,7 @@ const GalleryPage = () => {
           keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={styles.gallery}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => setSelectedImage(item.encodedData)}>
+            <TouchableOpacity onPress={() => setSelectedImage(item.encodedData)} onLongPress={() => storageService.deleteImage(item.id).then(fetchImages)}>
               <Image source={{ uri: `data:image/png;base64,${item.encodedData}` }} style={styles.image} />
             </TouchableOpacity>
           )}
