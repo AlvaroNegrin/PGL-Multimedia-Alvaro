@@ -1,11 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios, { AxiosError } from "axios";
 import Toast from "react-native-toast-message";
 import { UserLogData, UserRegisData } from "../types/UserType";
 import { asyncStorageService } from "./async-storage-service";
 import { router } from "expo-router";
 
-const TOKEN_KEY = "aSecretExample123";
 const API_URL = "http://192.168.1.18:5000/auth";
 
 const registerUser = async (data: UserRegisData) => {

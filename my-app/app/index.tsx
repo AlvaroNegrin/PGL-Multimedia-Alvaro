@@ -9,7 +9,7 @@ export default function AppPage() {
 
   useEffect(() => {
     const checkToken = async () => {
-        const token = await asyncStorageService.get(asyncStorageService.KEYS.userToken);
+        const token = await asyncStorageService.get();
         if (token) {
             router.navigate("/welcome");
         } else {
