@@ -7,6 +7,7 @@ import { LIGHT_COLORS } from '../../../styles/colors/color';
 import { Camera, CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 import CameraModal from '../../../components/CameraModal';
 import { useFocusEffect } from 'expo-router';
+import { imageService } from '../../../services/image-management-service';
 
 const { width } = Dimensions.get('window');
 const imageSize = width / 3 - 15;
@@ -27,7 +28,7 @@ const GalleryPage = () => {
     try {
       const token = await asyncStorageService.get();
       if (!token) throw new Error('No token found');
-      const imagesData: ImageData[] = await storageService.getImages(token);
+      const imagesData: ImageData[] = await imageService.getImages(token);
       setImages(imagesData);
     } catch (error) {
       console.error('Error fetching images:', error);
@@ -66,7 +67,7 @@ const GalleryPage = () => {
           keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={styles.gallery}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => setSelectedImage(item.encodedData)} onLongPress={() => storageService.deleteImage(item.id).then(fetchImages)}>
+            <TouchableOpacity onPress={() => setSelectedImage(item.encodedData)} onLongPress={() => imageService.deleteImage(item.id).then(fetchImages)}>
               <Image source={{ uri: `data:image/png;base64,${item.encodedData}` }} style={styles.image} />
             </TouchableOpacity>
           )}

@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { asyncStorageService } from '../services/async-storage-service';
 import { storageService } from '../services/user-management-service';
 import { LIGHT_COLORS } from '../styles/colors/color';
+import { imageService } from '../services/image-management-service';
 
 type CameraModalProps = {
     visible: boolean;
@@ -23,7 +24,7 @@ const CameraModal = ({ visible, onClose }: CameraModalProps) => {
         try {
             const token = await asyncStorageService.get();
             if (!token) throw new Error('No token found');
-            await storageService.uploadImage(base64, token);
+            await imageService.uploadImage(base64, token);
         } catch (error) {
             console.error('Error uploading image:', error);
         }
