@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { storageService } from '../../../services/user-management-service';
-import { Button, Dimensions, FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Button, Dimensions, FlatList, Image, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ImageData } from '../../../types/ImageType';
 import { asyncStorageService } from '../../../services/async-storage-service';
 import { LIGHT_COLORS } from '../../../styles/colors/color';
@@ -14,6 +14,7 @@ const imageSize = width / 3 - 15;
 const GalleryPage = () => {
   const [images, setImages] = useState<ImageData[]>([]);
   const [cameraVisible, setCameraVisible] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [permission, requestPermission] = useCameraPermissions();
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const GalleryPage = () => {
       fetchImages();
     }
   }, [cameraVisible]);
-  
+
   const fetchImages = async () => {
     try {
       const token = await asyncStorageService.get();
@@ -32,26 +33,26 @@ const GalleryPage = () => {
       console.error('Error fetching images:', error);
     }
   };
-  
+
   const handleOpenCamera = async () => {
-  console.log("Estado de permisos:", permission); 
+    console.log("Estado de permisos:", permission);
 
-  if (!permission) {
-    return;
-  }
-
-  if (!permission.granted) {
-    const newPermission = await requestPermission();
-    console.log("Nuevo estado de permisos:", newPermission);
-
-    if (!newPermission.granted) {
-      alert("Se requieren permisos de cámara para continuar.");
+    if (!permission) {
       return;
     }
-  }
 
-  setCameraVisible(true);
-};
+    if (!permission.granted) {
+      const newPermission = await requestPermission();
+      console.log("Nuevo estado de permisos:", newPermission);
+
+      if (!newPermission.granted) {
+        alert("Se requieren permisos de cámara para continuar.");
+        return;
+      }
+    }
+
+    setCameraVisible(true);
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Galería de Imágenes</Text>
@@ -65,14 +66,22 @@ const GalleryPage = () => {
           keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={styles.gallery}
           renderItem={({ item }) => (
-            <Image source={{ uri: `data:image/png;base64,${item.encodedData}` }} style={styles.image} />
+            <TouchableOpacity onPress={() => setSelectedImage(item.encodedData)}>
+              <Image source={{ uri: `data:image/png;base64,${item.encodedData}` }} style={styles.image} />
+            </TouchableOpacity>
           )}
         />
       )}
 
       <Pressable style={styles.cameraButton} onPress={handleOpenCamera}>
-          <Text style={styles.cameraButtonText}>Abrir Cámara</Text>
+        <Text style={styles.cameraButtonText}>Abrir Cámara</Text>
       </Pressable>
+
+      <Modal visible={selectedImage !== null} transparent={true}>
+        <TouchableOpacity style={styles.bigImage} onPress={() => setSelectedImage(null)}>
+          <Image source={{ uri: `data:image/png;base64,${selectedImage}` }} style={{ width: '90%', height: '90%' }} />
+        </TouchableOpacity>
+      </Modal>
 
       <CameraModal visible={cameraVisible} onClose={() => setCameraVisible(false)} />
     </View>
@@ -125,6 +134,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  bigImage: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    backgroundColor: 'rgba(0,0,0,0.6)'
+  }
 });
 
 export default GalleryPage;
